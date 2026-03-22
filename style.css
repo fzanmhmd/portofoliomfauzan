@@ -214,7 +214,7 @@ nav .container {
 
 /* GENERAL SECTIONS - FIXED */
 section {
-    padding: 100px 0;
+    padding: 80px 0;
 }
 
 .container {
@@ -267,7 +267,7 @@ section {
 }
 
 .about-image img {
-    width: 80%;
+    width: 50%;
     border-radius: 20px; /* Fixed invalid px */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
@@ -460,16 +460,16 @@ section {
     .nav-links {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 78px;
         flex-direction: column;
-        background: rgba(255, 255, 255, 0.98);
+        background: rgb(0, 0, 0);
         backdrop-filter: blur(20px);
         width: 100%;
         text-align: center;
-        padding: 3rem 0;
-        gap: 2rem;
-        transition: left 0.3s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem 0;
+        gap: 1rem;
+        transition: left 0.5s ease;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
         z-index: 999;
     }
     
@@ -478,12 +478,12 @@ section {
     }
     
     .nav-links a {
-        font-size: 1.2rem;
+        font-size: 1rem;
         padding: 1rem;
     }
     
     .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(7px, 7px);
+        transform: rotate(45deg) translate(4px, 6px);
     }
     
     .hamburger.active span:nth-child(2) {
@@ -491,7 +491,7 @@ section {
     }
     
     .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
+        transform: rotate(-45deg) translate(4px, -6px);
     }
     
     /* Hero Mobile */
