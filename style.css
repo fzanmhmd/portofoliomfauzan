@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Poppins", sans-serif;
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
@@ -14,12 +14,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* ========================================
-   NAVIGATION - FIXED DESKTOP, MOBILE RESPONSIVE
-======================================== */
+/* ============
+   NAVIGATION 
+=============== */
 nav {
     background: transparent;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     position: fixed;
     top: 0;
     width: 100%;
@@ -30,7 +30,7 @@ nav {
 }
 
 nav .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -41,7 +41,13 @@ nav .container {
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color:#00243c;
+    color: #ffffff;
+    text-shadow:
+    1px 1px 0 #0a4d68,
+    2px 2px 0 #0a4d68,
+    3px 3px 0 #0d91c5,
+    4px 1px 5px rgba(255, 255, 255, 0.5);
+
 
 }
 
@@ -53,7 +59,13 @@ nav .container {
 
 .nav-links a {
     text-decoration: none;
-    color: #00243c;
+    color: #ffffff;
+    color: #ffffff;
+    text-shadow:
+    1px 1px 0 #0a4d68,
+    2px 2px 0 #0a4d68,
+    3px 3px 0 #0d91c5,
+    4px 1px 5px rgba(255, 255, 255, 0.5);
     font-weight: 500;
     transition: color 0.3s ease;
     position: relative;
@@ -66,7 +78,7 @@ nav .container {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background: #006cb4;
+    background: #2cabff;
     transition: width 0.3s ease;
 }
 
@@ -75,7 +87,7 @@ nav .container {
 }
 
 .nav-links a:hover {
-    color: #006cb4;;
+    color:#2cabff;
 }
 
 .hamburger {
@@ -89,14 +101,14 @@ nav .container {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: #333;
-    border-radius: 2px;
-    transition: all 0.3s ease;
+    background: #ffffff;
+    border-radius: 5px;
+    transition: all 0.2s ease;
 }
 
-/* ========================================
-   HERO SECTION - FIXED DESKTOP, MOBILE FIT
-======================================== */
+/* =============
+   HERO SECTION 
+================ */
 .hero {
     height: 100vh;
     background: linear-gradient(65deg, #3498db, #002035, #3498db);
@@ -122,7 +134,7 @@ nav .container {
 }
 
 .hero-content {
-    max-width: 900px;
+    max-width: 100%;
 }
 
 .hero-content img {
@@ -144,11 +156,49 @@ nav .container {
 }
 
 .highlight {
-    color: #006cb4;
+  position: relative;
+  display: inline-block;
+  color: #006cb4;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.8),
+    transparent
+  );
+
+  animation: shine 1.5s ease forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+    opacity: 1;
+  }
+  80% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
 .hero-content p {
-    font-size: 1.3rem;
+    font-family: "Lexend Exa", sans-serif;
+    font-size: 1rem;
     margin-bottom: 2rem;
     opacity: 0.9;
     animation: fadeInUp 1s ease 0.2s both;
@@ -164,9 +214,9 @@ nav .container {
     flex-wrap: wrap;
 }
 
-/* ========================================
-   BUTTONS - FIXED + MOBILE FRIENDLY
-======================================== */
+/* =========
+   BUTTONS 
+=========== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -212,9 +262,9 @@ nav .container {
     color: white;
 }
 
-/* GENERAL SECTIONS - FIXED */
+/* GENERAL SECTIONS  */
 section {
-    padding: 80px 0;
+    padding: 90px 0;
 }
 
 .container {
@@ -232,7 +282,7 @@ section {
 
 /* ABOUT SECTION - FIXED */
 .about {
-    background: #ffffff;
+    background: linear-gradient(to right,#d6efff, rgb(255, 255, 255),#d6efff);
 }
 
 .about-content {
@@ -273,6 +323,9 @@ section {
 }
 
 /* PROJECTS SECTION - FIXED */
+.projects{
+    background: linear-gradient(to right,#d6efff, rgb(255, 255, 255),#d6efff);
+}
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
