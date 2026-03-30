@@ -229,7 +229,7 @@ nav .container {
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    min-height: 48px;
+    min-height: 100%;
     font-size: 1rem;
     touch-action: manipulation;
 }
@@ -551,7 +551,7 @@ section {
     left: 0;
     background: #2cabff;
     transition: width 0.3s ease;
-}
+    }
 
     .hamburger.active span:nth-child(1) {
         transform: rotate(45deg) translate(4px, 6px);
@@ -596,11 +596,13 @@ section {
     
     .btn {
         width: 100%;
-        max-width: 150px;
-        padding: 5px 15px;
         font-size: 0.8rem;
     }
-    
+    .btn.btn-pro{
+        width: 50%;
+        padding: 10px 10px;
+    }
+
     /* Container & Sections */
     .container {
         padding: 0 1.5rem;
@@ -645,21 +647,38 @@ section {
     }
     
     .contact-links {
+        display: flex;
+        justify-content: center;
         gap: 1.5rem;
+        margin: 2rem 0;
+        flex-wrap: nowrap;
     }
     
     .contact-link {
-        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+        padding: 0.1rem;;
+
     }
     
     .contact-link i {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
+
     
     .contact-form {
-        max-width: 100%;
         padding: 0 1rem;
     }
+
+   .btn-large {
+    padding: 10px 10px;
+    font-size: 1.1rem;
+    }           
 
     .form-group input,
     .form-group textarea {
