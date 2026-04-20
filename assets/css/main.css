@@ -268,13 +268,9 @@ nav .container {
 }
 
 .btn-large {
-    position: relative;
-    bottom: 20px;
-    left: 25%;
     width: 50%;
-    margin: 10px 10px;
-    padding: 10px 20px;
-    font-size: 1.1rem;
+    position: relative;
+    font-size: 1rem;
 }
 
 .btn-small {
@@ -345,7 +341,7 @@ nav .container {
 
 /* GENERAL SECTIONS  */
 section {
-    padding: 90px 0;
+    padding: 70px 0;
 }
 
 .container {
@@ -366,6 +362,7 @@ section {
     background: linear-gradient(to right,#d6efff, rgb(255, 255, 255),#d6efff);
 }
 
+    
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -381,6 +378,11 @@ section {
     margin-bottom: 1rem;
     color: #3498db;
 }
+
+.about-text a {
+    color: inherit;
+}
+
 
 .about-skills {
     display: flex;
@@ -514,6 +516,7 @@ section {
 
 .contact-form {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 1.5rem;
     max-width: 600px;
@@ -693,7 +696,7 @@ section {
     
     .hero-content p {
         font-size: 0.6rem;
-        padding: 0 qrem;
+        padding: 0 rem;
     }
     
     .btn {
@@ -733,7 +736,7 @@ section {
     .about-text p{
         display: flex;
         flex-direction:column;
-        font-size: 0.5rem;
+        font-size: 0.6rem;
         text-align: justify;
     }
     
@@ -751,21 +754,69 @@ section {
     }
 
     /* Projects Mobile */
+    .container.project{
+        max-width: 350px;
+        margin: auto;
+        overflow-x: auto;
+    }
+
     .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        display: grid;
+        width: 100%;
+        grid-auto-flow: column;
+        grid-auto-columns:100%;
+        gap: 10px;
         padding: 0 0.5rem;
     }
     
+    .project-card{
+       width: 100%;
+    }
+
+    .project-image{
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
     .project-image img {
-        height: 200px;
+        width: 100%;
+        height: 100%; 
+        object-fit: scale-down;
+    }
+
+    .project-info h3{
+        font-size: 16px;
     }
     
+    .project-info p{
+        font-size: 10px;
+
+    }
+
+    .project-tech{
+        width: 100%;
+    }
+
+    .tech-tag{
+        font-size: 10px;
+    }
+
+    .btn-small, .btn-outline{
+        font-size:8px;
+        width: 30%;
+    }
+
     /* Contact Mobile */
     .contact-content h2 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
-    
+    .contact-content p{
+        font-size: 0.8rem;
+
+    }
+
     .contact-links {
         display: flex;
         justify-content: center;
@@ -780,31 +831,29 @@ section {
         align-items: center;
         color: white;
         text-decoration: none;
-        font-size: 0.8rem;
+        font-size: 0.5rem;
         transition: all 0.3s ease;
         padding: 0.1rem;;
 
     }
     
     .contact-link i {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
-    
     .contact-form {
-        padding: 0 1rem;
+        padding: 0 0.8rem;
     }
 
    .btn-large {
-    width: 50%;
-    padding: 5px 10px;
-    font-size: 1rem;
+        width: 30%;
+        font-size: 0.5rem;
     }           
 
     .form-group input,
     .form-group textarea {
-        padding: 18px;
-        font-size: 1.05rem;
+        padding: 10px;
+        font-size: 0.6rem;
     }
 }
 
@@ -816,7 +865,7 @@ footer {
     color: #bdc3c7;
     text-align: center;
     padding: 2.5rem 2rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .heart {
@@ -849,13 +898,12 @@ footer {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
     height: fit-content;
-    max-height: 500px;
+    max-height: 300px;
     margin: 1rem;
 }
 
 .history-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
@@ -865,8 +913,8 @@ footer {
 .history-header h3 {
     margin: 0;
     color: #ffffff;
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -946,7 +994,6 @@ footer {
     font-size: 4rem;
     margin-bottom: 1.5rem;
     opacity: 0.4;
-    display: block;
 }
 
 .empty-state p {
