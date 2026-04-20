@@ -16,14 +16,19 @@
     <nav>
         <div class="container">
             <div class="nav-logo">
-                <img src="assets/images/profil.jpeg" alt="logomf">
+                <img class="imglogo" src="assets/images/profil.jpeg" alt="logomf">
                 <h1 class="logo">Muhammad Fauzan</h1>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#about">Tentang Saya</a></li>
-                <li><a href="#projects">Projek</a></li>
-                <li><a href="#contact">Hubungi Saya</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Project</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="toogle">
+                    <button id="eng">EN</button>
+                    <button id="idn">ID</button>
+                    <span class="slider"></span>
+                </li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -38,13 +43,13 @@
             <img src="assets/images/fotoprofil.jpeg" alt="Foto Muhammad Fauzan">
             <h1>Saya <span class="highlight">Muhammad Fauzan</span></h1>
             <p>Web Developer | Creative Design | Digital Creator | Freelancer (Upwork)</p>
-            <a href="#projects" class="btn btn-pro">Lihat Projek Saya</a>
+            <a href="#projects" class="btn btn-pro">My Project</a>
         </div>
     </section>
 
     <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">Tentang Saya</h2>
+        <div class="container about">
+            <h2 class="section-title">About</h2>
             <div class="about-content">
                 <div class="about-text">
                     <h3>Halo! Perkenalkan saya Ojan</h3>
@@ -54,13 +59,16 @@
                         Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik
                     </p>
                     <div class="about-skills">
-                        <span class="skill">HTML/CSS</span>
+                        <span class="skill">HTML</span>
+                        <span class="skill">CSS</span>
                         <span class="skill">JavaScript</span>
                         <span class="skill">Canva</span>
                         <span class="skill">Ms.Word</span>
                         <span class="skill">Ms.Excel</span>
                         <span class="skill">Figma</span>
                         <span class="skill">Python</span>
+                        <span class="skill">MySQL</span>
+                        <span class="skill">Flask</span>
                     </div>
                 </div>
                 <div class="about-image">
@@ -71,7 +79,7 @@
     </section>
 
     <section id="projects" class="projects">
-        <div class="container">
+        <div class="container project">
             <h2 class="section-title">Projek Saya</h2>
             <div class="projects-grid">
                 <div class="project-card">
