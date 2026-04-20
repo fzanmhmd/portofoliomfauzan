@@ -30,7 +30,7 @@ nav {
     z-index: 10;
 }
 
-.container img{
+.imglogo{
     width: 50px;
     border-radius:20px;
     box-shadow: 0 0 2px 1px rgb(0, 0, 0);
@@ -60,6 +60,28 @@ nav .container {
         0 0 1px #000000,
         0 0 3px #000000,
         0 0 5px #000000;
+}
+
+.btn-lang{
+   width: 1px;
+   height: 1px;
+   font-size: 1px;
+}
+
+.toogle{
+    justify-content: space-between;
+    position: relative ;
+    width: 100%px;
+    background-color: #2980b9;
+    border-radius: 15px;
+}
+
+.toogle button{
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    background:none ;
+    color: white;
 }
 
 .nav-links {
@@ -220,16 +242,7 @@ nav .container {
     margin-right: auto;
 }
 
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
 
-/* =========
-   BUTTONS 
-=========== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -386,8 +399,8 @@ section {
 
 .about-image img {
     width: 50%;
-    border-radius: 20px; /* Fixed invalid px */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 50px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* PROJECTS SECTION - FIXED */
@@ -573,8 +586,8 @@ section {
 }
 
 @media (max-width: 768px) {
-    .container img{
-        width: 35px;
+    .imglogo{
+        width: 30px;
 
     }
 
@@ -588,12 +601,12 @@ section {
         color: #006cb4;
         overflow: hidden;
         vertical-align: middle;
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 
     .nav-links {
         position: fixed;
-        top: 67px;
+        top: 62px;
         right: 0;
         flex-direction: column;
         background: rgba(0, 0, 0, 0.281);
@@ -606,7 +619,25 @@ section {
         transform: translateY(-160%);
         transition: transform 0.4s  ;
     }
-    
+
+    .toogle{
+        display: flex;
+        position: relative;
+        width: 50%;
+        height: 10%;
+        left: 30px;
+        background-color: #005086;
+        justify-content: space-between;
+    }
+
+    .toogle button{
+        width: 50%;
+        font-size: 12px;
+        color: white;
+        border: none;
+        background: none;
+    }
+
     .nav-links.active {
         transform: translateY(0);
     }
@@ -614,7 +645,7 @@ section {
     .nav-links a {
         position: relative;
         bottom: 5px;
-        font-size: 0.7rem;
+        font-size: 0.5rem;
         padding: 1rem;
         z-index: 9;
     }
@@ -661,14 +692,8 @@ section {
     }
     
     .hero-content p {
-        font-size: 0.9rem;
-        padding: 0 1rem;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
+        font-size: 0.6rem;
+        padding: 0 qrem;
     }
     
     .btn {
@@ -676,8 +701,8 @@ section {
         font-size: 0.8rem;
     }
     .btn.btn-pro{
-        width: 50%;
-        padding: 10px 10px;
+        width: 40%;
+        padding: 8px 8px;
     }
 
     /* Container & Sections */
@@ -696,17 +721,35 @@ section {
     
     /* About Mobile */
     .about-content {
-        gap: 2.5rem;
+        display: flex;
+        width:100%;
+        gap: 1rem;
     }
     
     .about-text h3 {
-        font-size: 1.8rem;
+        font-size: 1rem;
+    }
+
+    .about-text p{
+        display: flex;
+        flex-direction:column;
+        font-size: 0.5rem;
+        text-align: justify;
     }
     
     .about-skills {
         justify-content: center;
+        gap: 5px;
+    }
+
+    .skill{
+        font-size: 0.4rem;
     }
     
+    .about-image img{
+        width: 800px;
+    }
+
     /* Projects Mobile */
     .projects-grid {
         grid-template-columns: 1fr;
@@ -753,8 +796,9 @@ section {
     }
 
    .btn-large {
-    padding: 10px 10px;
-    font-size: 1.1rem;
+    width: 50%;
+    padding: 5px 10px;
+    font-size: 1rem;
     }           
 
     .form-group input,
