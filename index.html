@@ -13,8 +13,9 @@
 </head>
 
 <body>
-    <nav>
-        <div class="container">
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="container nav-inner">
             <div class="nav-logo">
                 <img class="imglogo" src="assets/images/profil.jpeg" alt="logomf">
                 <h1 class="logo">Muhammad Fauzan</h1>
@@ -24,10 +25,10 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Project</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#sertifikat">Sertifikat</a></li>
                 <li class="toogle">
                     <button id="eng">EN</button>
                     <button id="idn">ID</button>
-                    <span class="slider"></span>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -38,27 +39,38 @@
         </div>
     </nav>
 
+    <!-- HERO -->
     <section id="home" class="hero">
+        <!-- Animated particles canvas -->
+        <canvas id="heroCanvas"></canvas>
+
         <div class="hero-content">
             <img src="assets/images/fotoprofil.jpeg" alt="Foto Muhammad Fauzan">
             <h1>Saya <span class="highlight">Muhammad Fauzan</span></h1>
-            <p>Web Developer | Creative Design | Digital Creator | Freelancer (Upwork)</p>
-            <a href="#projects" class="btn btn-pro">My Project</a>
-            <a href="assets/pdf/cvmfauzan.pdf" class="btn btn-pro" target="_blank">Download CV</a>
+            <p>Frontend Dev | Creative Design | Digital Creator | Freelancer (Upwork)</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-pro">My Project</a>
+                <a href="assets/pdf/cvmfauzan.pdf" class="btn btn-outline-white" target="_blank">Download CV</a>
+            </div>
+        </div>
+
+        <!-- smooth wave transition -->
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="#d6efff"/>
+            </svg>
         </div>
     </section>
 
+    <!-- ABOUT -->
     <section id="about" class="about">
-        <div class="container about">
-            <h2 class="section-title">About</h2>
+        <h2 class="section-title anim-title">About</h2>
+        <div class="container">
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text anim-left">
                     <h3>Halo! Perkenalkan saya Ojan</h3>
-                    <p>Saya lulusan S1 Teknik Informatika dari <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a> yang berfokus pada pengembangan website modern, 
-                        responsif, dan user-friendly. Memiliki pengalaman dalam UI/UX serta desain visual, termasuk pembuatan konten menggunakan Canva, dan aktif sebagai freelancer di Upwork.<br></br>
-                        Selain itu, saya juga memiliki minat di bidang content creation, seperti membuat konten dan live streaming game di TikTok, khususnya game kompetitif seperti Mobile Legends dan game story. Saat ini saya terus mengembangkan kemampuan dalam membangun website dan aplikasi dengan performa tinggi serta pengalaman pengguna yang optimal. 
-                        Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik
-                    </p>
+                    <p>Saya lulusan S1 Teknik Informatika dari <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a> yang berfokus pada pengembangan website modern, responsif, dan user-friendly. Memiliki pengalaman dalam UI/UX serta desain visual, termasuk pembuatan konten menggunakan Canva, dan aktif sebagai freelancer di Upwork.</p>
+                    <p>Selain itu, saya juga memiliki minat di bidang content creation, seperti membuat konten dan live streaming game di TikTok, khususnya game kompetitif seperti Mobile Legends dan game story. Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik.</p>
                     <div class="about-skills">
                         <span class="skill">HTML</span>
                         <span class="skill">CSS</span>
@@ -66,45 +78,57 @@
                         <span class="skill">Canva</span>
                         <span class="skill">Ms.Word</span>
                         <span class="skill">Ms.Excel</span>
-                        <span class="skill">Figma</span>
                         <span class="skill">Python</span>
                         <span class="skill">MySQL</span>
                         <span class="skill">Flask</span>
                     </div>
                 </div>
-                <div class="about-image">
+                <div class="about-image anim-right">
                     <img src="assets/images/potosantai.jpeg" alt="Profile">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects" class="projects">
-        <h2 class="section-title">My Project</h2>
-        <div class="container project">
-            <div class="projects-grid">
-                <div class="project-card">
+        <h2 class="section-title anim-title">My Project</h2>
+
+        <div class="projects-scroll-wrapper">
+            <button class="scroll-btn scroll-left" id="scrollLeft" aria-label="scroll left">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="projects-track" id="projectsTrack">
+
+                <div class="project-card anim-up">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/400x250/667eea/ffffff?text=E-Commerce" alt="Project 1">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Belum Tersedia</h3>
-                        <p>Projek TA/Skripsi (Sistem Prediksi Kebutuhan dan Stok Aman Darah PRC Berbasi web dengan metode WMA)</p>
+                        <p>Projek TA/Skripsi — Klasifikasi Prioritas Pasien Transfusi Darah PRC Menggunakan Metode <a href="https://esairina.medium.com/algoritma-naive-bayes-pemahaman-contoh-perhitungan-manual-dan-implementasi-dengan-python-dan-475091cae835">Naive Bayes</a> Pada RS.Kanker Dharmais</p>
                         <div class="project-tech">
-                            <span class="tech-tag">HTML/CSS</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-outline">GitHub</a>
+                            <span class="tech-tag">Python</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card anim-up" style="--delay:0.1s">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Dashboard" alt="Project 2">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Belum Tersedia</h3>
@@ -114,101 +138,112 @@
                             <span class="tech-tag">Chart.js</span>
                             <span class="tech-tag">Express</span>
                         </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-outline">GitHub</a>
-                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card anim-up" style="--delay:0.2s">
                     <div class="project-image">
                         <img src="assets/images/logodondar.png" alt="DonDar">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://dondar-mf.vercel.app/" class="btn btn-small" target="_blank">Live Demo</a>
+                                <a href="https://github.com/fzanmhmd/dondar" class="btn btn-outline" target="_blank">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
-                        <h3>Aplikasi Don<highlight style="color: red;">Dar</highlight></h3>
-                        <p>Aplikasi <strong>Don<highlight style="color: red;">Dar</highlight></strong> berbasis WEB. Dengan fitur Validasi login, Role Petugas, login Petugas dan Pendonor jadi satu lalu dengan tampilan yang user-friendly dan interaktif.</p>
+                        <h3>Aplikasi Don<span style="color:#e74c3c">Dar</span></h3>
+                        <p>Aplikasi <strong>DonDar</strong> berbasis WEB dengan fitur validasi login, Role Petugas, dan tampilan user-friendly.</p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML</span>
                             <span class="tech-tag">CSS</span>
                             <span class="tech-tag">JavaScript</span>
                         </div>
-                        <div class="project-links">
-                            <a href="https://dondar-mf.vercel.app/" class="btn btn-small" target="_blank">Live Demo</a>
-                            <a href="https://github.com/fzanmhmd/dondar" class="btn btn-outline" target="_blank">GitHub</a>
-                        </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card anim-up" style="--delay:0.3s">
                     <div class="project-image">
                         <img src="assets/images/mega.jpg" alt="Absensi">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://mfauzan.netlify.app/" class="btn btn-small" target="_blank">Live Demo</a>
+                                <a href="https://github.com/fzanmhmd/formabsensiptmega/tree/main/FORMABSENSI" class="btn btn-outline" target="_blank">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
-                        <h3>Form absensi PT.Mega Primatama</h3>
-                        <p>Membantu sebuah perusahaan yang sistem absensinya masih menggunakan Upload foto melalui Whatsapp. Dengan aplikasi absensi berbasis WEB ini memudahkan karyawan dan perusahaan untuk menyimpan data dan mengolah data absensi.</p>
+                        <h3>Form Absensi PT.Mega Primatama</h3>
+                        <p>Aplikasi absensi berbasis WEB yang memudahkan karyawan dan perusahaan menyimpan dan mengolah data absensi.</p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML</span>
                             <span class="tech-tag">CSS</span>
                             <span class="tech-tag">JavaScript</span>
                             <span class="tech-tag">Python</span>
-                            <span class="tech-tag">MySQL</span>
                             <span class="tech-tag">Flask</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://mfauzan.netlify.app/" class="btn btn-small" target="_blank">Live Demo</a>
-                            <a href="https://github.com/fzanmhmd/formabsensiptmega/tree/main/FORMABSENSI" class="btn btn-outline" target="_blank">GitHub</a>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+
+                <div class="project-card anim-up" style="--delay:0.4s">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Dashboard" alt="Project 5">
+                        <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Coming+Soon" alt="Project 5">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Belum Tersedia</h3>
-                        <p>-</p>
+                        <p>Segera hadir — project baru sedang dalam pengerjaan.</p>
                         <div class="project-tech">
                             <span class="tech-tag">Vue.js</span>
                             <span class="tech-tag">Chart.js</span>
-                            <span class="tech-tag">Express</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-outline">GitHub</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card anim-up" style="--delay:0.5s">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/ff6b6b/ffffff?text=Portfolio" alt="Project 6">
+                        <img src="https://via.placeholder.com/400x250/ff6b6b/ffffff?text=Coming+Soon" alt="Project 6">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="btn btn-small">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Belum Tersedia</h3>
-                        <p>-</p>
+                        <p>Segera hadir — project baru sedang dalam pengerjaan.</p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML/CSS</span>
                             <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">GSAP</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small">Live Demo</a>
-                            <a href="#" class="btn btn-outline">GitHub</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
+            </div>
+
+            <button class="scroll-btn scroll-right" id="scrollRight" aria-label="scroll right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- dot indicators -->
+        <div class="scroll-dots" id="scrollDots"></div>
+    </section>
+    
+    <!-- CONTACT -->
     <section id="contact" class="contact">
         <div class="container">
             <div class="contact-content">
-                <h2 class="section-title">Hubungi Saya</h2>
-                <p>Siap untuk kolaborasi? Mari kita buat sesuatu yang luar biasa bersama!</p>
-                <div class="contact-links">
+                <h2 class="section-title anim-title" style="color:#ecf0f1">Hubungi Saya</h2>
+                <p class="anim-up">Siap untuk kolaborasi? Mari kita buat sesuatu yang luar biasa bersama!</p>
+
+                <div class="contact-links anim-up">
                     <a href="mailto:ojan14021@gmail.com" class="contact-link" target="_blank">
                         <i class="fas fa-envelope"></i>
                         <span>E-mail</span>
@@ -231,7 +266,7 @@
                     </a>
                 </div>
 
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form anim-up" id="contactForm">
                     <div class="form-group">
                         <input type="text" id="name" placeholder="Nama Lengkap" required>
                     </div>
@@ -241,19 +276,21 @@
                     <div class="form-group">
                         <textarea id="message" rows="5" placeholder="Pesan Anda..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-large">Kirim Pesan</button>                  
+                    <button type="submit" class="btn-kirim">Kirim Pesan</button>
                 </form>
-                <div class="message-history-container">
+
+                <div class="message-history-container anim-up">
                     <div class="history-header">
-                        <h3>Pesan</h3>
+                        <h3>Pesan Masuk</h3>
                     </div>
                     <div class="message-history" id="messageHistory">
                         <div class="empty-state">
                             <i class="fas fa-inbox"></i>
-                            <p>Kosong</p>                           
+                            <p>Kosong</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
