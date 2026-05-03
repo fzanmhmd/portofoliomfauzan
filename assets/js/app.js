@@ -1,235 +1,239 @@
-/* ============================================
-   app.js — Portfolio Muhammad Fauzan
-   ============================================ */
+const translations = {
+  id: {
+    'nav.home':       'Beranda',
+    'nav.about':      'Tentang',
+    'nav.projects':   'Projek',
+    'nav.cert':       'Sertifikat',
+    'nav.contact':    'Kontak',
+    'hero.eyebrow':   'Frontend Developer & Digital Creator',
+    'hero.greeting':  'Halo, saya',
+    'hero.desc':      'Membangun website modern, responsif, dan user-friendly. Fokus pada UI/UX yang bersih dan pengalaman digital yang bermakna.',
+    'hero.btn1':      '<i class="fas fa-folder-open"></i> Lihat Project',
+    'hero.btn2':      '<i class="fas fa-arrow-down"></i> Unduh CV',
+    'hero.stat':      'Projects',
+    'about.title':    'Tentang',
+    'about.h3':       'Halo! Perkenalkan saya Ojan',
+    'about.p1':       'Saya lulusan S1 Teknik Informatika dari <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a> yang berfokus pada pengembangan website modern, responsif, dan user-friendly. Memiliki pengalaman dalam UI/UX serta desain visual, termasuk pembuatan konten menggunakan Canva, dan aktif sebagai freelancer di Upwork.',
+    'about.p2':       'Selain itu, saya juga memiliki minat di bidang content creation, seperti membuat konten dan live streaming game di TikTok, khususnya game kompetitif seperti Mobile Legends dan game story. Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik.',
+    'about.stat1':    'Teknik Informatika',
+    'about.stat2':    'Tahun Pengalaman',
+    'about.stat3':    'Projects',
+    'about.stat4':    'Upwork Freelancer',
+    'projects.title': 'Projects',
+    'proj.soon':      'Segera',
+    'proj.wip':       'Dalam Pengerjaan',
+    'proj.tba':       'Belum Tersedia',
+    'proj.tba.desc':  'Segera hadir — project baru sedang dalam pengerjaan.',
+    'proj1.title':    'Klasifikasi Prioritas Pasien',
+    'proj1.desc':     'Projek TA/Skripsi — Klasifikasi prioritas pasien transfusi darah PRC menggunakan Naive Bayes pada RS Kanker Dharmais.',
+    'proj2.title':    'Website Top-up Game',
+    'proj2.desc':     'Website belanja dan top-up game online lengkap dengan payment gateway dan admin dashboard.',
+    'proj3.desc':     'Aplikasi DonDar berbasis web dengan fitur validasi login, role petugas, dan tampilan user-friendly.',
+    'proj4.desc':     'Aplikasi absensi berbasis web yang memudahkan karyawan dan perusahaan menyimpan dan mengolah data kehadiran.',
+    'cert.title':     'Sertifikat',
+    'contact.title':  'Kontak',
+    'contact.h3':     'Mari berkolaborasi',
+    'contact.p':      'Siap untuk project baru atau sekadar ngobrol tentang ide digital? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah.',
+    'form.name':      'Nama',
+    'form.email':     'Email',
+    'form.message':   'Pesan',
+    'form.send':      'Kirim Pesan',
+    'form.inbox':     'Pesan Masuk',
+    'form.empty':     'Belum ada pesan.',
+    'footer.made':    'Dibuat dengan',
+    'footer.stack':   'HTML · CSS · JavaScript',
+  },
+  en: {
+    'nav.home':       'Home',
+    'nav.about':      'About',
+    'nav.projects':   'Projects',
+    'nav.cert':       'Certificates',
+    'nav.contact':    'Contact',
+    'hero.eyebrow':   'Frontend Developer & Digital Creator',
+    'hero.greeting':  'Hi, I\'m',
+    'hero.desc':      'Building modern, responsive, and user-friendly websites. Focused on clean UI/UX and meaningful digital experiences.',
+    'hero.btn1':      '<i class="fas fa-folder-open"></i> View Projects',
+    'hero.btn2':      '<i class="fas fa-arrow-down"></i> Download CV',
+    'hero.stat':      'Projects',
+    'about.title':    'About',
+    'about.h3':       'Hi! I\'m Ojan',
+    'about.p1':       'I\'m a Computer Science graduate from <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a>, focused on building modern, responsive, and user-friendly websites. Experienced in UI/UX and visual design including Canva, and active as a freelancer on Upwork.',
+    'about.p2':       'I also have a passion for content creation — making content and live-streaming games on TikTok, especially competitive games like Mobile Legends. I love turning complex ideas into simple, attractive digital solutions.',
+    'about.stat1':    'Computer Science',
+    'about.stat2':    'Years of Experience',
+    'about.stat3':    'Projects',
+    'about.stat4':    'Upwork Freelancer',
+    'projects.title': 'Projects',
+    'proj.soon':      'Coming soon',
+    'proj.wip':       'In Progress',
+    'proj.tba':       'Not Available Yet',
+    'proj.tba.desc':  'Coming soon — new project in progress.',
+    'proj1.title':    'Patient Priority Classification',
+    'proj1.desc':     'Thesis project — PRC blood transfusion patient priority classification using Naive Bayes at RS Kanker Dharmais.',
+    'proj2.title':    'Game Top-up Website',
+    'proj2.desc':     'Online game shopping and top-up website with payment gateway and admin dashboard.',
+    'proj3.desc':     'DonDar web app with login validation, officer roles, and a user-friendly interface.',
+    'proj4.desc':     'Web-based attendance app that helps employees and companies store and manage attendance data easily.',
+    'cert.title':     'Certificates',
+    'contact.title':  'Contact',
+    'contact.h3':     'Let\'s collaborate',
+    'contact.p':      'Ready for a new project or just want to chat about a digital idea? Feel free to reach out through any platform below.',
+    'form.name':      'Name',
+    'form.email':     'Email',
+    'form.message':   'Message',
+    'form.send':      'Send Message',
+    'form.inbox':     'Inbox',
+    'form.empty':     'No messages yet.',
+    'footer.made':    'Made with',
+    'footer.stack':   'HTML · CSS · JavaScript',
+  }
+};
 
-/* ---------- NAVBAR scroll effect ---------- */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
+let currentLang = 'id';
+
+function applyLang(lang) {
+  currentLang = lang;
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = translations[lang][key];
+    if (val !== undefined) el.innerHTML = val;
+  });
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.getElementById('btnID').classList.toggle('active', lang === 'id');
+}
+
+document.getElementById('btnEN').addEventListener('click', () => applyLang('en'));
+document.getElementById('btnID').addEventListener('click', () => applyLang('id'));
+
+/* ────────────────────────────────────────────
+   DARK MODE
+──────────────────────────────────────────── */
+const themeBtn  = document.getElementById('themeToggle');
+const themeIcon = themeBtn.querySelector('i');
+let isDark = false;
+
+// respect system preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  isDark = true;
+  document.documentElement.setAttribute('data-theme', 'dark');
+  themeIcon.className = 'fas fa-sun';
+}
+
+themeBtn.addEventListener('click', () => {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
 });
 
-/* ---------- HAMBURGER ---------- */
+/* ────────────────────────────────────────────
+   HAMBURGER
+──────────────────────────────────────────── */
 const hamburger = document.getElementById('hamburger');
 const navLinks  = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('active');
-  navLinks.classList.toggle('active');
+  navLinks.classList.toggle('open');
 });
-
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
     hamburger.classList.remove('active');
-    navLinks.classList.remove('active');
+    navLinks.classList.remove('open');
   });
 });
 
-/* ---------- HERO CANVAS — floating geometric particles ---------- */
-(function () {
-  const canvas = document.getElementById('heroCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+/* ────────────────────────────────────────────
+   SCROLL REVEAL
+──────────────────────────────────────────── */
+const revealEls = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
 
-  function resize() {
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const SHAPES = ['circle', 'triangle', 'ring', 'diamond'];
-  const COUNT  = 38;
-
-  const particles = Array.from({ length: COUNT }, () => ({
-    x:     Math.random() * canvas.width,
-    y:     Math.random() * canvas.height,
-    r:     4 + Math.random() * 14,
-    vx:    (Math.random() - 0.5) * 0.45,
-    vy:    (Math.random() - 0.5) * 0.45,
-    alpha: 0.06 + Math.random() * 0.2,
-    shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
-    rot:   Math.random() * Math.PI * 2,
-    rotV:  (Math.random() - 0.5) * 0.012,
-  }));
-
-  function drawShape(p) {
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-    ctx.globalAlpha = p.alpha;
-    ctx.strokeStyle = 'rgba(255,255,255,1)';
-    ctx.fillStyle   = 'rgba(255,255,255,1)';
-    ctx.lineWidth   = 1.2;
-
-    switch (p.shape) {
-      case 'circle':
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-
-      case 'ring':
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-        ctx.stroke();
-        break;
-
-      case 'triangle':
-        ctx.beginPath();
-        ctx.moveTo(0, -p.r);
-        ctx.lineTo(p.r * 0.87, p.r * 0.5);
-        ctx.lineTo(-p.r * 0.87, p.r * 0.5);
-        ctx.closePath();
-        ctx.stroke();
-        break;
-
-      case 'diamond':
-        ctx.beginPath();
-        ctx.moveTo(0, -p.r);
-        ctx.lineTo(p.r * 0.6, 0);
-        ctx.lineTo(0, p.r);
-        ctx.lineTo(-p.r * 0.6, 0);
-        ctx.closePath();
-        ctx.stroke();
-        break;
-    }
-    ctx.restore();
-  }
-
-  function tick() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const p of particles) {
-      p.x  += p.vx;
-      p.y  += p.vy;
-      p.rot += p.rotV;
-      if (p.x < -30) p.x = canvas.width + 30;
-      if (p.x > canvas.width + 30) p.x = -30;
-      if (p.y < -30) p.y = canvas.height + 30;
-      if (p.y > canvas.height + 30) p.y = -30;
-      drawShape(p);
-    }
-    requestAnimationFrame(tick);
-  }
-  tick();
-})();
-
-/* ---------- SCROLL REVEAL ---------- */
-(function () {
-  const targets = document.querySelectorAll(
-    '.anim-left, .anim-right, .anim-up, .anim-title'
-  );
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  targets.forEach(el => observer.observe(el));
-})();
-
-/* ---------- PROJECT HORIZONTAL SCROLL ---------- */
-(function () {
-  const track      = document.getElementById('projectsTrack');
-  const btnLeft    = document.getElementById('scrollLeft');
-  const btnRight   = document.getElementById('scrollRight');
-  const dotsWrap   = document.getElementById('scrollDots');
+/* ────────────────────────────────────────────
+   PROJECTS SCROLL
+──────────────────────────────────────────── */
+(function() {
+  const track  = document.getElementById('pTrack');
+  const btnL   = document.getElementById('pLeft');
+  const btnR   = document.getElementById('pRight');
   if (!track) return;
+  const STEP = 340;
 
-  const cards  = track.querySelectorAll('.project-card');
-  const total  = cards.length;
-  const STEP   = 340;
-
-  /* Build dots */
-  const dots = Array.from({ length: total }, (_, i) => {
-    const d = document.createElement('button');
-    d.className = 'scroll-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', `Go to project ${i + 1}`);
-    d.addEventListener('click', () => {
-      track.scrollTo({ left: i * STEP, behavior: 'smooth' });
-    });
-    dotsWrap.appendChild(d);
-    return d;
-  });
-
-  function updateUI() {
-    const s = track.scrollLeft;
-    btnLeft.disabled  = s <= 0;
-    btnRight.disabled = s >= track.scrollWidth - track.clientWidth - 5;
-    const idx = Math.round(s / STEP);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  function updateBtns() {
+    btnL.disabled = track.scrollLeft <= 4;
+    btnR.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
   }
 
-  btnLeft.addEventListener('click',  () => track.scrollBy({ left: -STEP, behavior: 'smooth' }));
-  btnRight.addEventListener('click', () => track.scrollBy({ left:  STEP, behavior: 'smooth' }));
-  track.addEventListener('scroll', updateUI);
-  updateUI();
+  btnL.addEventListener('click', () => track.scrollBy({ left: -STEP, behavior: 'smooth' }));
+  btnR.addEventListener('click', () => track.scrollBy({ left:  STEP, behavior: 'smooth' }));
+  track.addEventListener('scroll', updateBtns);
+  updateBtns();
 
-  /* Drag to scroll */
-  let isDown = false, startX, scrollStart;
+  // drag to scroll
+  let isDragging = false, sx, sl;
   track.addEventListener('mousedown', e => {
-    isDown = true;
+    isDragging = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft;
     track.classList.add('grabbing');
-    startX = e.pageX - track.offsetLeft;
-    scrollStart = track.scrollLeft;
   });
-  document.addEventListener('mouseup', () => {
-    isDown = false;
-    track.classList.remove('grabbing');
-  });
+  window.addEventListener('mouseup', () => { isDragging = false; track.classList.remove('grabbing'); });
   track.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - track.offsetLeft;
-    track.scrollLeft = scrollStart - (x - startX);
+    if (!isDragging) return; e.preventDefault();
+    track.scrollLeft = sl - (e.pageX - track.offsetLeft - sx);
   });
+  track.addEventListener('mouseleave', () => { isDragging = false; track.classList.remove('grabbing'); });
 })();
 
-/* ---------- CONTACT FORM ---------- */
-(function () {
+/* ────────────────────────────────────────────
+   CERTIFICATE MARQUEE — pause on hover
+──────────────────────────────────────────── */
+(function() {
+  const marquee = document.getElementById('certMarquee');
+  const track   = document.getElementById('certTrack');
+  if (!marquee || !track) return;
+
+  marquee.addEventListener('mouseenter', () => track.classList.add('paused'));
+  marquee.addEventListener('mouseleave', () => track.classList.remove('paused'));
+  // touch support
+  marquee.addEventListener('touchstart', () => track.classList.add('paused'), { passive: true });
+  marquee.addEventListener('touchend',   () => track.classList.remove('paused'));
+})();
+
+/* ────────────────────────────────────────────
+   CONTACT FORM
+──────────────────────────────────────────── */
+(function() {
   const form    = document.getElementById('contactForm');
-  const history = document.getElementById('messageHistory');
-  if (!form || !history) return;
+  const msgList = document.getElementById('msgList');
+  if (!form || !msgList) return;
+
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const name    = document.getElementById('name').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    if (!name || !email || !message) return;
+    const name = document.getElementById('cName').value.trim();
+    const email= document.getElementById('cEmail').value.trim();
+    const msg  = document.getElementById('cMsg').value.trim();
+    if (!name || !email || !msg) return;
 
-    /* Clear empty state */
-    const empty = history.querySelector('.empty-state');
+    const empty = msgList.querySelector('.msg-empty');
     if (empty) empty.remove();
 
     const now  = new Date();
-    const time = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-    const date = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    const time = now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+    const date = now.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
 
     const item = document.createElement('div');
-    item.className = 'message-item';
+    item.className = 'msg-item';
     item.innerHTML = `
-      <div class="message-meta">
-        <span class="message-name">${escapeHtml(name)}</span>
-        <span class="message-time">${date} ${time}</span>
+      <div class="msg-meta">
+        <span class="msg-name">${esc(name)}</span>
+        <span class="msg-time">${date} ${time}</span>
       </div>
-      <div class="message-content">${escapeHtml(message)}</div>
-    `;
-    history.prepend(item);
+      <div class="msg-text">${esc(msg)}</div>`;
+    msgList.prepend(item);
     form.reset();
   });
-
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
 })();
-
-/* ---------- LANGUAGE TOGGLE (stub) ---------- */
-document.getElementById('eng')?.addEventListener('click', () => {
-  console.log('Switch to English — implement i18n here');
-});
-document.getElementById('idn')?.addEventListener('click', () => {
-  console.log('Switch to Indonesian — implement i18n here');
-});
