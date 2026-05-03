@@ -1,304 +1,505 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark" data-lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Muhammad Fauzan</title>
-    <link rel="icon" href="assets/images/profil.jpeg">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Fauzan — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-
 <body>
-    <!-- NAV -->
     <nav id="navbar">
         <div class="container nav-inner">
             <div class="nav-logo">
-                <img class="imglogo" src="assets/images/profil.jpeg" alt="logomf">
-                <h1 class="logo">Muhammad Fauzan</h1>
+                <img src="assets/images/profil.jpeg" alt="MF" onerror="this.style.display='none'" />
+                <span>Muhammad Fauzan</span>
             </div>
+
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Project</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#sertifikat">Sertifikat</a></li>
-                <li class="toogle">
-                    <button id="eng">EN</button>
-                    <button id="idn">ID</button>
-                </li>
+                <li><a href="#home"      data-i18n="nav.home">Beranda</a></li>
+                <li><a href="#about"     data-i18n="nav.about">Tentang</a></li>
+                <li><a href="#projects"  data-i18n="nav.projects">Projek</a></li>
+                <li><a href="#sertifikat" data-i18n="nav.cert">Sertifikat</a></li>
+                <li><a href="#contact"   data-i18n="nav.contact">Kontak</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <div class="nav-controls">
+                <div class="lang-toggle">
+                    <button class="lang-btn" id="btnEN"><img src="https://flagcdn.com/w20/gb.png" width="20" alt="EN"></button>
+                    <button class="lang-btn active" id="btnID"><img src="https://flagcdn.com/w20/id.png" width="20" alt="ID"></button>
+                </div>
+                <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
+                    <i></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section id="home" class="hero">
-        <!-- Animated particles canvas -->
-        <canvas id="heroCanvas"></canvas>
-
-        <div class="hero-content">
-            <img src="assets/images/fotoprofil.jpeg" alt="Foto Muhammad Fauzan">
-            <h1>Saya <span class="highlight">Muhammad Fauzan</span></h1>
-            <p>Frontend Dev | Creative Design | Digital Creator | Freelancer (Upwork)</p>
+    <section id="home">
+    <div class="container">
+        <div class="hero-grid">
+        <div class="hero-text">
+            <p class="hero-eyebrow" data-i18n="hero.eyebrow">Frontend Developer &amp; Digital Creator</p>
+            <h1 class="hero-title">
+            <span data-i18n="hero.greeting">Halo, saya</span><br />
+            Muhammad<br />
+            <em>Fauzan.</em>
+            </h1>
+            <p class="hero-desc" data-i18n="hero.desc">
+            Membangun website modern, responsif, dan user-friendly. Fokus pada UI/UX yang bersih dan pengalaman digital yang bermakna.
+            </p>
             <div class="hero-btns">
-                <a href="#projects" class="btn btn-pro">My Project</a>
-                <a href="assets/pdf/cvmfauzan.pdf" class="btn btn-outline-white" target="_blank">Download CV</a>
+            <a href="#projects" class="btn-primary" data-i18n="hero.btn1">
+                <i class="fas fa-folder-open"></i> Lihat Project
+            </a>
+            <a href="assets/pdf/cvmfauzan.pdf" class="btn-ghost" target="_blank" data-i18n="hero.btn2">
+                <i class="fas fa-arrow-down"></i> Unduh CV
+            </a>
             </div>
         </div>
 
-        <!-- smooth wave transition -->
-        <div class="hero-wave">
-            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="#d6efff"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about">
-        <h2 class="section-title anim-title">About</h2>
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text anim-left">
-                    <h3>Halo! Perkenalkan saya Ojan</h3>
-                    <p>Saya lulusan S1 Teknik Informatika dari <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a> yang berfokus pada pengembangan website modern, responsif, dan user-friendly. Memiliki pengalaman dalam UI/UX serta desain visual, termasuk pembuatan konten menggunakan Canva, dan aktif sebagai freelancer di Upwork.</p>
-                    <p>Selain itu, saya juga memiliki minat di bidang content creation, seperti membuat konten dan live streaming game di TikTok, khususnya game kompetitif seperti Mobile Legends dan game story. Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik.</p>
-                    <div class="about-skills">
-                        <span class="skill">HTML</span>
-                        <span class="skill">CSS</span>
-                        <span class="skill">JavaScript</span>
-                        <span class="skill">Canva</span>
-                        <span class="skill">Ms.Word</span>
-                        <span class="skill">Ms.Excel</span>
-                        <span class="skill">Python</span>
-                        <span class="skill">MySQL</span>
-                        <span class="skill">Flask</span>
-                    </div>
-                </div>
-                <div class="about-image anim-right">
-                    <img src="assets/images/potosantai.jpeg" alt="Profile">
-                </div>
+        <div class="hero-img-wrap">
+            <div class="hero-img-frame">
+            <img src="assets/images/fotoprofil.jpeg" alt="Muhammad Fauzan"
+                onerror="this.src='https://via.placeholder.com/340x420/ddd8d0/6b6660?text=MF'" />
+            <div class="hero-tags">
+                <span class="hero-tag">HTML · CSS</span>
+                <span class="hero-tag">JavaScript</span>
+                <span class="hero-tag">Python</span>
+            </div>
+            <div class="hero-stat">
+                <div class="num">4+</div>
+                <div class="lbl" data-i18n="hero.stat">Projects</div>
+            </div>
             </div>
         </div>
+        </div>
+    </div>
     </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="projects">
-        <h2 class="section-title anim-title">My Project</h2>
+    <!-- ══ ABOUT ══════════════════════════════════ -->
+    <section id="about">
+    <div class="container">
+        <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <h2 class="sec-title" data-i18n="about.title">About</h2>
+        <div class="sec-line"></div>
+        </div>
 
-        <div class="projects-scroll-wrapper">
-            <button class="scroll-btn scroll-left" id="scrollLeft" aria-label="scroll left">
-                <i class="fas fa-chevron-left"></i>
+        <div class="about-grid">
+        <div class="about-text reveal-l">
+            <h3 data-i18n="about.h3">Halo! Perkenalkan saya Ojan</h3>
+            <p data-i18n="about.p1">
+            Saya lulusan S1 Teknik Informatika dari
+            <a href="https://unindra.ac.id/" target="_blank">Universitas Indraprasta PGRI</a>
+            yang berfokus pada pengembangan website modern, responsif, dan user-friendly.
+            Memiliki pengalaman dalam UI/UX serta desain visual, termasuk pembuatan konten menggunakan Canva,
+            dan aktif sebagai freelancer di Upwork.
+            </p>
+            <p data-i18n="about.p2">
+            Selain itu, saya juga memiliki minat di bidang content creation, seperti membuat konten
+            dan live streaming game di TikTok, khususnya game kompetitif seperti Mobile Legends dan game story.
+            Saya senang mengubah ide yang kompleks menjadi solusi digital yang sederhana dan menarik.
+            </p>
+            <div class="skills-grid">
+            <span class="skill-chip">HTML</span>
+            <span class="skill-chip">CSS</span>
+            <span class="skill-chip">JavaScript</span>
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">Flask</span>
+            <span class="skill-chip">MySQL</span>
+            <span class="skill-chip">Canva</span>
+            <span class="skill-chip">Ms. Word</span>
+            <span class="skill-chip">Ms. Excel</span>
+            </div>
+        </div>
+
+        <div class="about-aside reveal-r">
+            <img class="about-aside-img"
+                src="assets/images/potosantai.jpeg"
+                alt="Profile casual"
+                onerror="this.src='https://via.placeholder.com/360x480/ddd8d0/6b6660?text=Photo'" />
+            <div class="about-stats">
+            <div class="about-stat">
+                <div class="n">S1</div>
+                <div class="l" data-i18n="about.stat1">Teknik Informatika</div>
+            </div>
+            <div class="about-stat">
+                <div class="n">2+</div>
+                <div class="l" data-i18n="about.stat2">Tahun Pengalaman</div>
+            </div>
+            <div class="about-stat">
+                <div class="n">4+</div>
+                <div class="l" data-i18n="about.stat3">Projects</div>
+            </div>
+            <div class="about-stat">
+                <div class="n">↗</div>
+                <div class="l" data-i18n="about.stat4">Upwork Freelancer</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- ══ PROJECTS ══════════════════════════════ -->
+    <section id="projects">
+    <div class="container">
+        <div class="projects-header">
+        <div class="sec-head reveal" style="margin-bottom:0; flex:1;">
+            <span class="sec-num">02</span>
+            <h2 class="sec-title" data-i18n="projects.title">Projects</h2>
+            <div class="sec-line"></div>
+        </div>
+        <div class="scroll-controls">
+            <button class="scroll-arrow" id="pLeft"  aria-label="Scroll left">
+            <i class="fas fa-arrow-left"></i>
             </button>
-
-            <div class="projects-track" id="projectsTrack">
-
-                <div class="project-card anim-up">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/667eea/ffffff?text=E-Commerce" alt="Project 1">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="btn btn-small">Live Demo</a>
-                                <a href="#" class="btn btn-outline">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Belum Tersedia</h3>
-                        <p>Projek TA/Skripsi — Klasifikasi Prioritas Pasien Transfusi Darah PRC Menggunakan Metode <a href="https://esairina.medium.com/algoritma-naive-bayes-pemahaman-contoh-perhitungan-manual-dan-implementasi-dengan-python-dan-475091cae835">Naive Bayes</a> Pada RS.Kanker Dharmais</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card anim-up" style="--delay:0.1s">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Dashboard" alt="Project 2">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="btn btn-small">Live Demo</a>
-                                <a href="#" class="btn btn-outline">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Belum Tersedia</h3>
-                        <p>Website belanja/topup game online lengkap dengan payment gateway dan admin dashboard.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Chart.js</span>
-                            <span class="tech-tag">Express</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card anim-up" style="--delay:0.2s">
-                    <div class="project-image">
-                        <img src="assets/images/logodondar.png" alt="DonDar">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://dondar-mf.vercel.app/" class="btn btn-small" target="_blank">Live Demo</a>
-                                <a href="https://github.com/fzanmhmd/dondar" class="btn btn-outline" target="_blank">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Aplikasi Don<span style="color:#e74c3c">Dar</span></h3>
-                        <p>Aplikasi <strong>DonDar</strong> berbasis WEB dengan fitur validasi login, Role Petugas, dan tampilan user-friendly.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card anim-up" style="--delay:0.3s">
-                    <div class="project-image">
-                        <img src="assets/images/mega.jpg" alt="Absensi">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="https://mfauzan.netlify.app/" class="btn btn-small" target="_blank">Live Demo</a>
-                                <a href="https://github.com/fzanmhmd/formabsensiptmega/tree/main/FORMABSENSI" class="btn btn-outline" target="_blank">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Form Absensi PT.Mega Primatama</h3>
-                        <p>Aplikasi absensi berbasis WEB yang memudahkan karyawan dan perusahaan menyimpan dan mengolah data absensi.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Flask</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card anim-up" style="--delay:0.4s">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/764ba2/ffffff?text=Coming+Soon" alt="Project 5">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="btn btn-small">Live Demo</a>
-                                <a href="#" class="btn btn-outline">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Belum Tersedia</h3>
-                        <p>Segera hadir — project baru sedang dalam pengerjaan.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Chart.js</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card anim-up" style="--delay:0.5s">
-                    <div class="project-image">
-                        <img src="https://via.placeholder.com/400x250/ff6b6b/ffffff?text=Coming+Soon" alt="Project 6">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="btn btn-small">Live Demo</a>
-                                <a href="#" class="btn btn-outline">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Belum Tersedia</h3>
-                        <p>Segera hadir — project baru sedang dalam pengerjaan.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML/CSS</span>
-                            <span class="tech-tag">JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <button class="scroll-btn scroll-right" id="scrollRight" aria-label="scroll right">
-                <i class="fas fa-chevron-right"></i>
+            <button class="scroll-arrow" id="pRight" aria-label="Scroll right">
+            <i class="fas fa-arrow-right"></i>
             </button>
         </div>
+        </div>
 
-        <!-- dot indicators -->
-        <div class="scroll-dots" id="scrollDots"></div>
+        <div class="projects-track-outer">
+        <div class="projects-track" id="pTrack">
+
+            <!-- card 1 -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="https://via.placeholder.com/400x250/ddd8d0/6b6660?text=Naive+Bayes" alt="TA Skripsi" />
+                <div class="project-overlay">
+                <button class="overlay-btn outline"><i class="fas fa-lock"></i> <span data-i18n="proj.soon">Segera</span></button>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3 data-i18n="proj1.title">Klasifikasi Prioritas Pasien</h3>
+                <p data-i18n="proj1.desc">Projek TA/Skripsi — Klasifikasi prioritas pasien transfusi darah PRC menggunakan Naive Bayes pada RS Kanker Dharmais.</p>
+                <div class="project-tags">
+                <span class="p-tag">Python</span>
+                <span class="p-tag">Naive Bayes</span>
+                <span class="p-tag">Flask</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- card 2 -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="https://via.placeholder.com/400x250/ddd8d0/6b6660?text=Game+Shop" alt="Game Shop" />
+                <div class="project-overlay">
+                <button class="overlay-btn outline"><i class="fas fa-lock"></i> <span data-i18n="proj.soon">Segera</span></button>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3 data-i18n="proj2.title">Website Top-up Game</h3>
+                <p data-i18n="proj2.desc">Website belanja dan top-up game online lengkap dengan payment gateway dan admin dashboard.</p>
+                <div class="project-tags">
+                <span class="p-tag">Vue.js</span>
+                <span class="p-tag">Chart.js</span>
+                <span class="p-tag">Express</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- card 3 — DonDar -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="assets/images/logodondar.png" alt="DonDar"
+                    onerror="this.src='https://via.placeholder.com/400x250/ddd8d0/6b6660?text=DonDar'" />
+                <div class="project-overlay">
+                <a href="https://dondar-mf.vercel.app/" target="_blank" class="overlay-btn filled">
+                    <i class="fas fa-external-link-alt"></i> Demo
+                </a>
+                <a href="https://github.com/fzanmhmd/dondar" target="_blank" class="overlay-btn outline">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3>Aplikasi DonDar</h3>
+                <p data-i18n="proj3.desc">Aplikasi DonDar berbasis web dengan fitur validasi login, role petugas, dan tampilan user-friendly.</p>
+                <div class="project-tags">
+                <span class="p-tag">HTML</span>
+                <span class="p-tag">CSS</span>
+                <span class="p-tag">JavaScript</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- card 4 — Absensi -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="assets/images/mega.jpg" alt="Absensi PT Mega"
+                    onerror="this.src='https://via.placeholder.com/400x250/ddd8d0/6b6660?text=Absensi'" />
+                <div class="project-overlay">
+                <a href="https://mfauzan.netlify.app/" target="_blank" class="overlay-btn filled">
+                    <i class="fas fa-external-link-alt"></i> Demo
+                </a>
+                <a href="https://github.com/fzanmhmd/formabsensiptmega/tree/main/FORMABSENSI" target="_blank" class="overlay-btn outline">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3>Form Absensi PT Mega</h3>
+                <p data-i18n="proj4.desc">Aplikasi absensi berbasis web yang memudahkan karyawan dan perusahaan menyimpan dan mengolah data kehadiran.</p>
+                <div class="project-tags">
+                <span class="p-tag">HTML</span>
+                <span class="p-tag">CSS</span>
+                <span class="p-tag">Python</span>
+                <span class="p-tag">Flask</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- card 5 — coming soon -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="https://via.placeholder.com/400x250/ddd8d0/6b6660?text=Coming+Soon" alt="Coming Soon" />
+                <div class="project-overlay">
+                <button class="overlay-btn outline"><i class="fas fa-clock"></i> <span data-i18n="proj.wip">Dalam Pengerjaan</span></button>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3 data-i18n="proj.tba">Belum Tersedia</h3>
+                <p data-i18n="proj.tba.desc">Segera hadir — project baru sedang dalam pengerjaan.</p>
+                <div class="project-tags">
+                <span class="p-tag">Vue.js</span>
+                <span class="p-tag">Chart.js</span>
+                </div>
+            </div>
+            </div>
+
+            <!-- card 6 — coming soon -->
+            <div class="project-card">
+            <div class="project-img-wrap">
+                <img src="https://via.placeholder.com/400x250/ddd8d0/6b6660?text=Coming+Soon" alt="Coming Soon" />
+                <div class="project-overlay">
+                <button class="overlay-btn outline"><i class="fas fa-clock"></i> <span data-i18n="proj.wip">Dalam Pengerjaan</span></button>
+                </div>
+            </div>
+            <div class="project-body">
+                <h3 data-i18n="proj.tba">Belum Tersedia</h3>
+                <p data-i18n="proj.tba.desc">Segera hadir — project baru sedang dalam pengerjaan.</p>
+                <div class="project-tags">
+                <span class="p-tag">HTML/CSS</span>
+                <span class="p-tag">JavaScript</span>
+                </div>
+            </div>
+            </div>
+        </div><!-- /projects-track -->
+        </div><!-- /projects-track-outer -->
+    </div>
     </section>
-    
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title anim-title" style="color:#ecf0f1">Hubungi Saya</h2>
-                <p class="anim-up">Siap untuk kolaborasi? Mari kita buat sesuatu yang luar biasa bersama!</p>
 
-                <div class="contact-links anim-up">
-                    <a href="mailto:ojan14021@gmail.com" class="contact-link" target="_blank">
-                        <i class="fas fa-envelope"></i>
-                        <span>E-mail</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/muhammad-fauzan-9b80103b2/" class="contact-link" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/fzanmhmd" class="contact-link" target="_blank">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://wa.me/6285162811421" class="contact-link" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>WhatsApp</span>
-                    </a>
-                    <a href="https://markojanmixedjour.blogspot.com/" class="contact-link" target="_blank">
-                        <i class="fab fa-blogger"></i>
-                        <span>Blogger</span>
-                    </a>
-                </div>
+    <!-- ══ CERTIFICATES ══════════════════════════ -->
+    <section id="sertifikat">
+    <div class="container">
+        <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <h2 class="sec-title" data-i18n="cert.title">Sertifikat</h2>
+        <div class="sec-line"></div>
+        </div>
+    </div>
 
-                <form class="contact-form anim-up" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Nama Lengkap" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Email Anda" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" rows="5" placeholder="Pesan Anda..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-kirim">Kirim Pesan</button>
-                </form>
+    <div class="cert-marquee-outer" id="certMarquee">
+        <div class="cert-track" id="certTrack">
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-code"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-palette"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-database"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-robot"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
 
-                <div class="message-history-container anim-up">
-                    <div class="history-header">
-                        <h3>Pesan Masuk</h3>
-                    </div>
-                    <div class="message-history" id="messageHistory">
-                        <div class="empty-state">
-                            <i class="fas fa-inbox"></i>
-                            <p>Kosong</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-code"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-palette"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-database"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-robot"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        <div class="cert-card" aria-hidden="true">
+            <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+            <h4>Skill</h4>
+            <p class="cert-issuer">Platform</p>
+            <p class="cert-year">tahun</p>
+        </div>
+        </div>
+    </div>
+    </section>
 
+    <!-- ══ CONTACT ════════════════════════════════ -->
+    <section id="contact">
+    <div class="container">
+        <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <h2 class="sec-title" data-i18n="contact.title">Kontak</h2>
+        <div class="sec-line"></div>
+        </div>
+
+        <div class="contact-grid">
+        <div class="contact-left reveal-l">
+            <h3 data-i18n="contact.h3">Mari berkolaborasi</h3>
+            <p data-i18n="contact.p">
+            Siap untuk project baru atau sekadar ngobrol tentang ide digital? Jangan ragu untuk menghubungi saya melalui salah satu platform di bawah.
+            </p>
+            <div class="social-links">
+            <a href="mailto:ojan14021@gmail.com" class="social-link" target="_blank">
+                <i class="fas fa-envelope"></i>
+                <span>ojan14021@gmail.com</span>
+                <span class="arrow">↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammad-fauzan-9b80103b2/" class="social-link" target="_blank">
+                <i class="fab fa-linkedin"></i>
+                <span>LinkedIn</span>
+                <span class="arrow">↗</span>
+            </a>
+            <a href="https://github.com/fzanmhmd" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+                <span class="arrow">↗</span>
+            </a>
+            <a href="https://wa.me/6285162811421" class="social-link" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+                <span class="arrow">↗</span>
+            </a>
+            <a href="https://markojanmixedjour.blogspot.com/" class="social-link" target="_blank">
+                <i class="fab fa-blogger"></i>
+                <span>Blogger</span>
+                <span class="arrow">↗</span>
+            </a>
             </div>
         </div>
+
+        <div class="contact-right reveal-r">
+            <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-row">
+                <div class="form-field">
+                <label for="cName" data-i18n="form.name">Nama</label>
+                <input type="text" id="cName" placeholder="Nama lengkap" required />
+                </div>
+                <div class="form-field">
+                <label for="cEmail" data-i18n="form.email">Email</label>
+                <input type="email" id="cEmail" placeholder="email@kamu.com" required />
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="cMsg" data-i18n="form.message">Pesan</label>
+                <textarea id="cMsg" rows="5" placeholder="Pesan atau pertanyaanmu..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i>
+                <span data-i18n="form.send">Kirim Pesan</span>
+            </button>
+            </form>
+
+            <div class="msg-history" id="msgHistory">
+            <div class="msg-history-head" data-i18n="form.inbox">Pesan Masuk</div>
+            <div class="msg-list" id="msgList">
+                <div class="msg-empty" data-i18n="form.empty">Belum ada pesan.</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
     </section>
 
+    <!-- ══ FOOTER ════════════════════════════════ -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Muhammad Fauzan. Dibuat dengan <i class="fas fa-heart heart"></i></p>
+    <div class="container">
+        <div class="footer-inner">
+        <p>© 2026 Muhammad Fauzan — <span data-i18n="footer.made">Dibuat dengan</span> <i class="fas fa-heart heart"></i></p>
+        <p style="font-size:0.72rem;color:var(--text2);" data-i18n="footer.stack">HTML · CSS · JavaScript</p>
         </div>
+    </div>
     </footer>
 
     <script src="assets/js/app.js"></script>
