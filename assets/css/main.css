@@ -125,10 +125,10 @@
       color:var(--text2); font-size:0.7rem; font-weight:500;
       letter-spacing:0.06em; text-transform:uppercase;
       padding:4px 10px; border-radius:99px;
-      transition:all 0.5s ease;
     }
+
     .lang-btn.active {
-      background:var(--surface); color:var(--text);
+      background:var(--tag-text);opacity: 0.9; color:var(--text);
       box-shadow:0 1px 4px rgba(0,0,0,0.1);
     }
 
@@ -462,7 +462,7 @@
     #sertifikat .sec-head { padding:0 2rem; max-width:1120px; margin:0 auto 3rem; }
 
     .cert-marquee-outer {
-      position:relative; overflow:hidden;
+      position:relative; overflow:visible;
     }
     .cert-marquee-outer::before,
     .cert-marquee-outer::after {
@@ -480,7 +480,7 @@
 
     .cert-track {
       display:flex; gap:1.5rem;
-      animation: marquee 28s linear infinite;
+      animation: marquee 30s linear infinite;
       width:max-content;
     }
     .cert-track.paused { animation-play-state:paused; }
@@ -491,15 +491,59 @@
     }
 
     .cert-card {
-      flex:0 0 260px; padding:1.4rem 1.6rem;
-      background:var(--surface); border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      transition:border-color var(--ease), box-shadow var(--ease);
-    }
-    .cert-card:hover {
-      border-color:var(--text2);
-      box-shadow:0 8px 28px rgba(0,0,0,0.07);
-    }
+  flex: 0 0 260px; padding: 1.4rem 1.6rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color var(--ease), box-shadow var(--ease), transform 0.3s;
+  position: relative; /* penting untuk overlay */
+}
+
+.cert-card:hover {
+  border-color: var(--text2);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+  transform: scale(1.1);
+}
+
+/* Modal overlay */
+.cert-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.cert-modal-overlay.active {
+  opacity: 1; pointer-events: all;
+}
+.cert-modal-box {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  max-width: 600px; width: 90%;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+.cert-modal-overlay.active .cert-modal-box {
+  transform: scale(1);
+}
+.cert-modal-box img {
+  width: 100%; border-radius: var(--radius);
+  display: block;
+}
+.cert-modal-close {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; cursor: pointer;
+  transition: background var(--ease);
+}
+.cert-modal-close:hover { background: var(--text); color: var(--bg); }
+
     [data-theme="dark"] .cert-card:hover {
       box-shadow:0 8px 28px rgba(0,0,0,0.3);
     }
