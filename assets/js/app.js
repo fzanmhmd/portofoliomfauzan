@@ -187,7 +187,7 @@ revealEls.forEach(el => revealObs.observe(el));
 })();
 
 /* ────────────────────────────────────────────
-   CERTIFICATE MARQUEE — pause on hover
+   CERTIFICATE
 ──────────────────────────────────────────── */
 (function() {
   const marquee = document.getElementById('certMarquee');
@@ -200,6 +200,34 @@ revealEls.forEach(el => revealObs.observe(el));
   marquee.addEventListener('touchstart', () => track.classList.add('paused'), { passive: true });
   marquee.addEventListener('touchend',   () => track.classList.remove('paused'));
 })();
+
+const certModal = document.getElementById('certModal');
+const certModalImg = document.getElementById('certModalImg');
+const certModalClose = document.getElementById('certModalClose');
+
+document.querySelectorAll('.cert-card[data-img]').forEach(card => {
+  card.addEventListener('click', () => {
+    certModalImg.src = card.dataset.img;
+    certModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+certModalClose.addEventListener('click', closeModal);
+certModal.addEventListener('click', (e) => {
+  if (e.target === certModal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function closeModal() {
+  certModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+
+
 
 /* ────────────────────────────────────────────
    CONTACT FORM
