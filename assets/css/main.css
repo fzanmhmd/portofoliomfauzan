@@ -597,6 +597,7 @@
       border-color:var(--text); color:var(--text);
       background:var(--tag-bg);
     }
+    .contactlogo{width: 19px;}
     .social-link span { flex:1; }
     .social-link .arrow { font-size:0.65rem; opacity:0.5; }
 
