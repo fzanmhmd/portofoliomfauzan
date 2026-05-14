@@ -185,18 +185,6 @@ revealEls.forEach(el => revealObs.observe(el));
 /* ────────────────────────────────────────────
    CERTIFICATE
 ──────────────────────────────────────────── */
-(function() {
-  const marquee = document.getElementById('certMarquee');
-  const track   = document.getElementById('certTrack');
-  if (!marquee || !track) return;
-
-  marquee.addEventListener('mouseenter', () => track.classList.add('paused'));
-  marquee.addEventListener('mouseleave', () => track.classList.remove('paused'));
-  // touch support
-  marquee.addEventListener('touchstart', () => track.classList.add('paused'), { passive: true });
-  marquee.addEventListener('touchend',   () => track.classList.remove('paused'));
-})();
-
 const certModal = document.getElementById('certModal');
 const certModalImg = document.getElementById('certModalImg');
 const certModalClose = document.getElementById('certModalClose');

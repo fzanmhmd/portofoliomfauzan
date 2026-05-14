@@ -479,15 +479,18 @@
     }
 
     .cert-track {
-      display:flex; gap:1.5rem;
+      --cert-gap: 1.5rem;
+      --cert-half-gap: 0.75rem;
+      display:flex; gap:var(--cert-gap);
       animation: marquee 60s linear infinite;
       width:max-content;
+      will-change: transform;
     }
     .cert-track.paused { animation-play-state:paused; }
 
     @keyframes marquee {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to   { transform: translateX(calc(-50% - var(--cert-half-gap))); }
     }
 
     @media (max-width: 768px) {
