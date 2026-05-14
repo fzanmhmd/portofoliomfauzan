@@ -491,7 +491,7 @@
     }
 
     .cert-card {
-  flex: 0 0 260px; padding: 1.4rem 1.6rem;
+  flex: 0 0 260px; padding: 1rem 1rem 1.2rem;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   cursor: pointer;
@@ -499,10 +499,26 @@
   position: relative; /* penting untuk overlay */
 }
 
+.cert-card.cert-placeholder {
+  cursor: default;
+}
+
 .cert-card:hover {
   border-color: var(--text2);
   box-shadow: 0 8px 28px rgba(0,0,0,0.07);
   transform: scale(1.1);
+}
+
+.cert-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  background: var(--bg2);
 }
 
 /* Modal overlay */
@@ -597,7 +613,13 @@
       border-color:var(--text); color:var(--text);
       background:var(--tag-bg);
     }
-    .contactlogo{width: 19px;}
+    .upwork-logo {
+      color: inherit;
+      font-size: 1.08rem;
+      width: 18px;
+      text-align: center;
+      flex: 0 0 18px;
+    }
     .social-link span { flex:1; }
     .social-link .arrow { font-size:0.65rem; opacity:0.5; }
 

@@ -203,7 +203,9 @@ const certModalClose = document.getElementById('certModalClose');
 
 document.querySelectorAll('.cert-card[data-img]').forEach(card => {
   card.addEventListener('click', () => {
-    certModalImg.src = card.dataset.img;
+    const imgSrc = card.dataset.img;
+    if (!imgSrc || imgSrc === '#') return;
+    certModalImg.src = imgSrc;
     certModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   });
@@ -233,31 +235,110 @@ function closeModal() {
   const msgList = document.getElementById('msgList');
   if (!form || !msgList) return;
 
-  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  const STORAGE_KEY = 'portfolioMessages';
+  const CLEAR_CACHE_KEY = 'portfolioMessagesCleared-2026-05-14';
+  const API_URL = '/api/messages';
 
-  form.addEventListener('submit', e => {
+  if (!localStorage.getItem(CLEAR_CACHE_KEY)) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem(CLEAR_CACHE_KEY, 'true');
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function getLocalMessages() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveLocalMessages(messages) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  }
+
+  function formatMessageTime(createdAt) {
+    const dateValue = new Date(createdAt);
+    const date = Number.isNaN(dateValue.getTime()) ? new Date() : dateValue;
+    const timeText = date.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+    const dateText = date.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+    return `${dateText} ${timeText}`;
+  }
+
+  function renderMessages(messages) {
+    msgList.innerHTML = '';
+
+    if (!messages.length) {
+      const empty = document.createElement('div');
+      empty.className = 'msg-empty';
+      empty.setAttribute('data-i18n', 'form.empty');
+      empty.textContent = translations[currentLang]['form.empty'];
+      msgList.appendChild(empty);
+      return;
+    }
+
+    messages.forEach(message => {
+      const item = document.createElement('div');
+      item.className = 'msg-item';
+      item.innerHTML = `
+        <div class="msg-meta">
+          <span class="msg-name">${esc(message.name)}</span>
+          <span class="msg-time">${formatMessageTime(message.createdAt)}</span>
+        </div>
+        <div class="msg-text">${esc(message.message)}</div>`;
+      msgList.appendChild(item);
+    });
+  }
+
+  async function loadMessages() {
+    try {
+      const response = await fetch(API_URL, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to load messages');
+      const messages = await response.json();
+      saveLocalMessages(messages);
+      renderMessages(messages);
+    } catch {
+      renderMessages(getLocalMessages());
+    }
+  }
+
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     const name = document.getElementById('cName').value.trim();
     const email= document.getElementById('cEmail').value.trim();
     const msg  = document.getElementById('cMsg').value.trim();
     if (!name || !email || !msg) return;
 
-    const empty = msgList.querySelector('.msg-empty');
-    if (empty) empty.remove();
+    const message = { name, email, message: msg };
 
-    const now  = new Date();
-    const time = now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
-    const date = now.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+      });
+      if (!response.ok) throw new Error('Failed to save message');
 
-    const item = document.createElement('div');
-    item.className = 'msg-item';
-    item.innerHTML = `
-      <div class="msg-meta">
-        <span class="msg-name">${esc(name)}</span>
-        <span class="msg-time">${date} ${time}</span>
-      </div>
-      <div class="msg-text">${esc(msg)}</div>`;
-    msgList.prepend(item);
+      const savedMessage = await response.json();
+      const messages = [savedMessage, ...getLocalMessages().filter(item => item.id !== savedMessage.id)];
+      saveLocalMessages(messages);
+      await loadMessages();
+    } catch {
+      const localMessage = {
+        ...message,
+        id: `local-${Date.now()}`,
+        createdAt: new Date().toISOString()
+      };
+      const messages = [localMessage, ...getLocalMessages()];
+      saveLocalMessages(messages);
+      renderMessages(messages);
+    }
+
     form.reset();
   });
+
+  loadMessages();
 })();
