@@ -113,12 +113,8 @@ const themeBtn  = document.getElementById('themeToggle');
 const themeIcon = themeBtn.querySelector('i');
 let isDark = false;
 
-// respect system preference
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  isDark = true;
-  document.documentElement.setAttribute('data-theme', 'dark');
-  themeIcon.className = 'fas fa-sun';
-}
+document.documentElement.setAttribute('data-theme', 'light');
+themeIcon.className = 'fas fa-moon';
 
 themeBtn.addEventListener('click', () => {
   isDark = !isDark;
