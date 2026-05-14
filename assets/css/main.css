@@ -480,7 +480,7 @@
 
     .cert-track {
       display:flex; gap:1.5rem;
-      animation: marquee 30s linear infinite;
+      animation: marquee 60s linear infinite;
       width:max-content;
     }
     .cert-track.paused { animation-play-state:paused; }
@@ -488,6 +488,12 @@
     @keyframes marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) {
+      .cert-track {
+        animation-duration: 80s;
+      }
     }
 
     .cert-card {
@@ -513,7 +519,7 @@
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  object-position: center;
+  object-position: center 42%;
   display: block;
   border-radius: var(--radius);
   border: 1px solid var(--border);
