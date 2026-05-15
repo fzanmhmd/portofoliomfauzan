@@ -462,7 +462,7 @@
     #sertifikat .sec-head { padding:0 2rem; max-width:1120px; margin:0 auto 3rem; }
 
     .cert-marquee-outer {
-      position:relative; overflow:visible;
+      position:relative; overflow:hidden;
     }
     .cert-marquee-outer::before,
     .cert-marquee-outer::after {
@@ -484,9 +484,9 @@
       gap:0;
       animation: marquee 60s linear infinite;
       width:max-content;
+      min-width:max-content;
       will-change: transform;
     }
-    .cert-track.paused { animation-play-state:paused; }
 
     .cert-group {
       display:flex;
@@ -497,7 +497,7 @@
 
     @keyframes marquee {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to   { transform: translateX(var(--cert-scroll-to, -50%)); }
     }
 
     @media (max-width: 768px) {

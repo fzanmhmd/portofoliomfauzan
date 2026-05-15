@@ -185,6 +185,30 @@ revealEls.forEach(el => revealObs.observe(el));
 /* ────────────────────────────────────────────
    CERTIFICATE
 ──────────────────────────────────────────── */
+(function() {
+  const track = document.getElementById('certTrack');
+  const firstGroup = track?.querySelector('.cert-group');
+  if (!track || !firstGroup) return;
+
+  while (track.querySelectorAll('.cert-group').length < 3) {
+    const clone = firstGroup.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('img').forEach(img => { img.alt = ''; });
+    track.appendChild(clone);
+  }
+
+  function syncMarqueeDistance() {
+    const width = firstGroup.getBoundingClientRect().width;
+    if (width > 0) {
+      track.style.setProperty('--cert-scroll-to', `-${width}px`);
+    }
+  }
+
+  requestAnimationFrame(syncMarqueeDistance);
+  window.addEventListener('resize', syncMarqueeDistance);
+  if (document.fonts) document.fonts.ready.then(syncMarqueeDistance);
+})();
+
 const certModal = document.getElementById('certModal');
 const certModalImg = document.getElementById('certModalImg');
 const certModalClose = document.getElementById('certModalClose');
