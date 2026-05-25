@@ -1,3 +1,7 @@
+const SUPABASE_URL = 'https://caidqliqotdsxdfgmite.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_KTzxDUcrAwbY5J61mWJCvQ_GtGbNtL4';
+const portfolioSupabase = window.supabase?.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY) || null;
+
 const translations = {
   id: {
     'nav.home':       'Beranda',
@@ -13,7 +17,7 @@ const translations = {
     'hero.stat':      'Projects',
     'like.label':     'Suka website ini',
     'like.liked':     'Terima kasih',
-    'like.count':     'total suka',
+    'like.count':     'suka',
     'about.title':    'Tentang',
     'about.h3':       'Halo! Perkenalkan saya Ojan',
     'about.p1':       'Saya adalah lulusan S1 Teknik Informatika yang berfokus sebagai Fullstack Web Developer dengan minat pada pengembangan sistem berbasis web, dashboard admin, database, dan integrasi Machine Learning. Saya terbiasa membangun aplikasi web modern, responsif, dan user-friendly, serta tertarik mengembangkan solusi digital yang mampu mengolah data untuk membantu proses pengambilan keputusan.',
@@ -60,7 +64,7 @@ const translations = {
     'hero.stat':      'Projects',
     'like.label':     'Like this website',
     'like.liked':     'Thanks for liking',
-    'like.count':     'total likes',
+    'like.count':     'likes',
     'about.title':    'About',
     'about.h3':       'Hi! I\'m Ojan',
     'about.p1':       'I am a Bachelor of Informatics Engineering graduate with a focus as a Fullstack Web Developer, interested in developing web-based systems, admin dashboards, databases, and Machine Learning integration. I am experienced in building modern, responsive, and user-friendly web applications, and I am passionate about creating digital solutions that can process data to support better decision-making.',
@@ -119,6 +123,7 @@ const realtime = (() => {
   let source = null;
 
   function ensureSource() {
+    if (portfolioSupabase) return;
     if (source || !('EventSource' in window)) return;
     source = new EventSource('/api/events');
   }
@@ -189,8 +194,23 @@ themeBtn.addEventListener('click', () => {
     labelEl.textContent = translations[currentLang][liked ? 'like.liked' : 'like.label'];
   }
 
+  async function countSupabaseLikes() {
+    const { count, error } = await portfolioSupabase
+      .from('website_likes')
+      .select('*', { count: 'exact', head: true });
+    if (error) throw error;
+    return count || 0;
+  }
+
   async function loadLikes() {
     try {
+      if (portfolioSupabase) {
+        const count = await countSupabaseLikes();
+        localStorage.setItem('portfolioLikeCount', String(count));
+        setCount(count);
+        return;
+      }
+
       const response = await fetch('/api/likes', { cache: 'no-store' });
       if (!response.ok) throw new Error('Failed to load likes');
       const likes = await response.json();
@@ -205,6 +225,20 @@ themeBtn.addEventListener('click', () => {
     button.disabled = true;
 
     try {
+      if (portfolioSupabase) {
+        const { error } = await portfolioSupabase
+          .from('website_likes')
+          .insert({});
+        if (error) throw error;
+
+        const count = await countSupabaseLikes();
+        localStorage.setItem(LIKED_KEY, 'true');
+        localStorage.setItem('portfolioLikeCount', String(count));
+        setCount(count);
+        syncLikedState();
+        return;
+      }
+
       const response = await fetch('/api/likes', { method: 'POST' });
       if (!response.ok) throw new Error('Failed to save like');
       const likes = await response.json();
@@ -221,16 +255,35 @@ themeBtn.addEventListener('click', () => {
     syncLikedState();
   });
 
-  realtime.on('state', payload => {
-    if (payload?.likes) setCount(payload.likes.count);
-  });
+  if (portfolioSupabase) {
+    portfolioSupabase
+      .channel('portfolio-website-likes')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'website_likes' },
+        async () => {
+          try {
+            const count = await countSupabaseLikes();
+            localStorage.setItem('portfolioLikeCount', String(count));
+            setCount(count);
+          } catch {
+            setCount(Number(localStorage.getItem('portfolioLikeCount')) || 0);
+          }
+        }
+      )
+      .subscribe();
+  } else {
+    realtime.on('state', payload => {
+      if (payload?.likes) setCount(payload.likes.count);
+    });
 
-  realtime.on('likes-updated', likes => {
-    if (likes) {
-      localStorage.setItem('portfolioLikeCount', String(likes.count || 0));
-      setCount(likes.count);
-    }
-  });
+    realtime.on('likes-updated', likes => {
+      if (likes) {
+        localStorage.setItem('portfolioLikeCount', String(likes.count || 0));
+        setCount(likes.count);
+      }
+    });
+  }
 
   window.addEventListener('portfolio:languagechange', syncLikedState);
   syncLikedState();
@@ -421,6 +474,15 @@ function closeModal() {
     setMessages([message, ...withoutDuplicate]);
   }
 
+  function fromSupabaseComment(comment) {
+    return {
+      id: comment.id,
+      name: comment.name,
+      message: comment.message,
+      createdAt: comment.created_at || comment.createdAt
+    };
+  }
+
   function formatMessageTime(createdAt) {
     const dateValue = new Date(createdAt);
     const date = Number.isNaN(dateValue.getTime()) ? new Date() : dateValue;
@@ -456,6 +518,17 @@ function closeModal() {
 
   async function loadMessages() {
     try {
+      if (portfolioSupabase) {
+        const { data, error } = await portfolioSupabase
+          .from('public_comments')
+          .select('id,name,message,created_at')
+          .order('created_at', { ascending: false })
+          .limit(50);
+        if (error) throw error;
+        setMessages((data || []).map(fromSupabaseComment));
+        return;
+      }
+
       const response = await fetch(API_URL, { cache: 'no-store' });
       if (!response.ok) throw new Error('Failed to load messages');
       const messages = await response.json();
@@ -475,6 +548,24 @@ function closeModal() {
     const message = { name, email, message: msg };
 
     try {
+      if (portfolioSupabase) {
+        const { data, error } = await portfolioSupabase
+          .from('public_comments')
+          .insert({ name, message: msg })
+          .select('id,name,message,created_at')
+          .single();
+        if (error) throw error;
+
+        portfolioSupabase
+          .from('contact_messages')
+          .insert({ name, email, message: msg })
+          .then(() => {}, () => {});
+
+        mergeMessage(fromSupabaseComment(data));
+        form.reset();
+        return;
+      }
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -496,13 +587,26 @@ function closeModal() {
     form.reset();
   });
 
-  realtime.on('state', payload => {
-    if (payload?.messages) setMessages(payload.messages);
-  });
+  if (portfolioSupabase) {
+    portfolioSupabase
+      .channel('portfolio-public-comments')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'public_comments' },
+        payload => {
+          if (payload.new) mergeMessage(fromSupabaseComment(payload.new));
+        }
+      )
+      .subscribe();
+  } else {
+    realtime.on('state', payload => {
+      if (payload?.messages) setMessages(payload.messages);
+    });
 
-  realtime.on('message-created', message => {
-    if (message) mergeMessage(message);
-  });
+    realtime.on('message-created', message => {
+      if (message) mergeMessage(message);
+    });
+  }
 
   window.addEventListener('portfolio:languagechange', () => renderMessages(currentMessages));
   loadMessages();
