@@ -221,6 +221,49 @@
     }
     .btn-ghost:hover { color:var(--text); border-color:var(--text2); }
 
+    .like-panel {
+      display:flex; align-items:center; gap:0.9rem;
+      margin-top:1.1rem; flex-wrap:wrap;
+    }
+    .like-button {
+      min-height:40px; padding:9px 16px;
+      border:1px solid var(--border); border-radius:var(--radius);
+      background:var(--surface); color:var(--text2);
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:0.78rem; font-weight:500;
+      letter-spacing:0.06em; text-transform:uppercase;
+      transition:color var(--ease), border-color var(--ease), background var(--ease), transform var(--ease);
+    }
+    .like-button i {
+      color:#c0392b;
+      transition:transform var(--ease);
+    }
+    .like-button:hover {
+      color:var(--text); border-color:var(--text2);
+      transform:translateY(-1px);
+    }
+    .like-button:hover i,
+    .like-button.liked i {
+      transform:scale(1.14);
+    }
+    .like-button.liked {
+      background:var(--text); color:var(--bg);
+      border-color:var(--text);
+    }
+    .like-button:disabled {
+      cursor:default;
+    }
+    .like-total {
+      display:flex; align-items:baseline; gap:6px;
+      color:var(--text2); font-size:0.76rem;
+      text-transform:uppercase; letter-spacing:0.08em;
+    }
+    .like-total strong {
+      font-family:var(--serif); font-size:1.35rem;
+      color:var(--text); line-height:1;
+      letter-spacing:0;
+    }
+
     .hero-img-wrap {
       display:flex; justify-content:flex-end; align-items:center;
     }
@@ -480,12 +523,23 @@
 
     .cert-track {
       --cert-gap: 1.5rem;
+      --cert-scroll-to: 0px;
       display:flex;
       gap:0;
       animation: marquee 60s linear infinite;
+      animation-play-state: paused;
       width:max-content;
       min-width:max-content;
       will-change: transform;
+    }
+
+    .cert-track.marquee-ready {
+      animation-play-state: running;
+    }
+
+    .cert-marquee-outer:hover .cert-track,
+    .cert-marquee-outer:focus-within .cert-track {
+      animation-play-state: paused;
     }
 
     .cert-group {
@@ -496,8 +550,8 @@
     }
 
     @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(var(--cert-scroll-to, -50%)); }
+      from { transform: translate3d(0,0,0); }
+      to   { transform: translate3d(var(--cert-scroll-to),0,0); }
     }
 
     @media (max-width: 768px) {

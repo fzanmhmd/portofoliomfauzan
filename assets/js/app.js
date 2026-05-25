@@ -11,6 +11,9 @@ const translations = {
     'hero.btn1':      '<i class="fas fa-folder-open"></i> Lihat Project',
     'hero.btn2':      '<i class="fas fa-arrow-down"></i> Unduh CV',
     'hero.stat':      'Projects',
+    'like.label':     'Suka website ini',
+    'like.liked':     'Terima kasih',
+    'like.count':     'total suka',
     'about.title':    'Tentang',
     'about.h3':       'Halo! Perkenalkan saya Ojan',
     'about.p1':       'Saya adalah lulusan S1 Teknik Informatika yang berfokus sebagai Fullstack Web Developer dengan minat pada pengembangan sistem berbasis web, dashboard admin, database, dan integrasi Machine Learning. Saya terbiasa membangun aplikasi web modern, responsif, dan user-friendly, serta tertarik mengembangkan solusi digital yang mampu mengolah data untuk membantu proses pengambilan keputusan.',
@@ -49,12 +52,15 @@ const translations = {
     'nav.projects':   'Projects',
     'nav.cert':       'Certificates',
     'nav.contact':    'Contact',
-    'hero.eyebrow':   'Fullstack WEB Developer | WEB-Based Systems &amp; Machine Learning Integrationr',
+    'hero.eyebrow':   'Fullstack WEB Developer | WEB-Based Systems &amp; Machine Learning Integration',
     'hero.greeting':  'Hi, I\'m',
     'hero.desc':      'I build modern, responsive websites and web-based systems integrated with data and Machine Learning to deliver smarter and more impactful digital solutions.',
     'hero.btn1':      '<i class="fas fa-folder-open"></i> View Projects',
     'hero.btn2':      '<i class="fas fa-arrow-down"></i> Download CV',
     'hero.stat':      'Projects',
+    'like.label':     'Like this website',
+    'like.liked':     'Thanks for liking',
+    'like.count':     'total likes',
     'about.title':    'About',
     'about.h3':       'Hi! I\'m Ojan',
     'about.p1':       'I am a Bachelor of Informatics Engineering graduate with a focus as a Fullstack Web Developer, interested in developing web-based systems, admin dashboards, databases, and Machine Learning integration. I am experienced in building modern, responsive, and user-friendly web applications, and I am passionate about creating digital solutions that can process data to support better decision-making.',
@@ -101,10 +107,45 @@ function applyLang(lang) {
   });
   document.getElementById('btnEN').classList.toggle('active', lang === 'en');
   document.getElementById('btnID').classList.toggle('active', lang === 'id');
+  window.dispatchEvent(new CustomEvent('portfolio:languagechange', { detail: { lang } }));
 }
 
 document.getElementById('btnEN').addEventListener('click', () => applyLang('en'));
 document.getElementById('btnID').addEventListener('click', () => applyLang('id'));
+
+const realtime = (() => {
+  const handlers = {};
+  const subscribedEvents = new Set();
+  let source = null;
+
+  function ensureSource() {
+    if (source || !('EventSource' in window)) return;
+    source = new EventSource('/api/events');
+  }
+
+  function emit(event, payload) {
+    (handlers[event] || []).forEach(handler => handler(payload));
+  }
+
+  function on(event, handler) {
+    if (!handlers[event]) handlers[event] = [];
+    handlers[event].push(handler);
+    ensureSource();
+
+    if (source && !subscribedEvents.has(event)) {
+      subscribedEvents.add(event);
+      source.addEventListener(event, e => {
+        try {
+          emit(event, JSON.parse(e.data));
+        } catch {
+          emit(event, null);
+        }
+      });
+    }
+  }
+
+  return { on };
+})();
 
 /* ────────────────────────────────────────────
    DARK MODE
@@ -121,6 +162,80 @@ themeBtn.addEventListener('click', () => {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
 });
+
+/* LIKE COUNTER */
+(function() {
+  const button = document.getElementById('likeButton');
+  const countEl = document.getElementById('likeCount');
+  const labelEl = document.getElementById('likeLabel');
+  if (!button || !countEl || !labelEl) return;
+
+  const LIKED_KEY = 'portfolioWebsiteLiked';
+  const formatter = new Intl.NumberFormat('id-ID');
+
+  function hasLiked() {
+    return localStorage.getItem(LIKED_KEY) === 'true';
+  }
+
+  function setCount(count) {
+    const value = Number(count) || 0;
+    countEl.textContent = formatter.format(value);
+  }
+
+  function syncLikedState() {
+    const liked = hasLiked();
+    button.classList.toggle('liked', liked);
+    button.disabled = liked;
+    labelEl.textContent = translations[currentLang][liked ? 'like.liked' : 'like.label'];
+  }
+
+  async function loadLikes() {
+    try {
+      const response = await fetch('/api/likes', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to load likes');
+      const likes = await response.json();
+      setCount(likes.count);
+    } catch {
+      setCount(Number(localStorage.getItem('portfolioLikeCount')) || 0);
+    }
+  }
+
+  button.addEventListener('click', async () => {
+    if (hasLiked()) return;
+    button.disabled = true;
+
+    try {
+      const response = await fetch('/api/likes', { method: 'POST' });
+      if (!response.ok) throw new Error('Failed to save like');
+      const likes = await response.json();
+      localStorage.setItem(LIKED_KEY, 'true');
+      localStorage.setItem('portfolioLikeCount', String(likes.count || 0));
+      setCount(likes.count);
+    } catch {
+      const fallbackCount = (Number(localStorage.getItem('portfolioLikeCount')) || 0) + 1;
+      localStorage.setItem(LIKED_KEY, 'true');
+      localStorage.setItem('portfolioLikeCount', String(fallbackCount));
+      setCount(fallbackCount);
+    }
+
+    syncLikedState();
+  });
+
+  realtime.on('state', payload => {
+    if (payload?.likes) setCount(payload.likes.count);
+  });
+
+  realtime.on('likes-updated', likes => {
+    if (likes) {
+      localStorage.setItem('portfolioLikeCount', String(likes.count || 0));
+      setCount(likes.count);
+    }
+  });
+
+  window.addEventListener('portfolio:languagechange', syncLikedState);
+  syncLikedState();
+  loadLikes();
+})();
 
 /* ────────────────────────────────────────────
    HAMBURGER
@@ -190,6 +305,8 @@ revealEls.forEach(el => revealObs.observe(el));
   const firstGroup = track?.querySelector('.cert-group');
   if (!track || !firstGroup) return;
 
+  track.querySelectorAll('.cert-group:not(:first-child)').forEach(group => group.remove());
+
   while (track.querySelectorAll('.cert-group').length < 3) {
     const clone = firstGroup.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
@@ -201,12 +318,25 @@ revealEls.forEach(el => revealObs.observe(el));
     const width = firstGroup.getBoundingClientRect().width;
     if (width > 0) {
       track.style.setProperty('--cert-scroll-to', `-${width}px`);
+      track.classList.add('marquee-ready');
     }
   }
 
-  requestAnimationFrame(syncMarqueeDistance);
+  function syncAfterLayout() {
+    requestAnimationFrame(syncMarqueeDistance);
+  }
+
+  const images = [...track.querySelectorAll('img')];
+  images.forEach(img => {
+    if (!img.complete) {
+      img.addEventListener('load', syncAfterLayout, { once: true });
+      img.addEventListener('error', syncAfterLayout, { once: true });
+    }
+  });
+
+  syncAfterLayout();
   window.addEventListener('resize', syncMarqueeDistance);
-  if (document.fonts) document.fonts.ready.then(syncMarqueeDistance);
+  if (document.fonts) document.fonts.ready.then(syncAfterLayout);
 })();
 
 const certModal = document.getElementById('certModal');
@@ -250,6 +380,7 @@ function closeModal() {
   const STORAGE_KEY = 'portfolioMessages';
   const CLEAR_CACHE_KEY = 'portfolioMessagesCleared-2026-05-14';
   const API_URL = '/api/messages';
+  let currentMessages = [];
 
   if (!localStorage.getItem(CLEAR_CACHE_KEY)) {
     localStorage.removeItem(STORAGE_KEY);
@@ -269,7 +400,25 @@ function closeModal() {
   }
 
   function saveLocalMessages(messages) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(0, 50)));
+  }
+
+  function normalizeMessages(messages) {
+    return (Array.isArray(messages) ? messages : [])
+      .filter(message => message && message.id)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
+  function setMessages(messages) {
+    currentMessages = normalizeMessages(messages);
+    saveLocalMessages(currentMessages);
+    renderMessages(currentMessages);
+  }
+
+  function mergeMessage(message) {
+    if (!message?.id) return;
+    const withoutDuplicate = currentMessages.filter(item => item.id !== message.id);
+    setMessages([message, ...withoutDuplicate]);
   }
 
   function formatMessageTime(createdAt) {
@@ -310,10 +459,9 @@ function closeModal() {
       const response = await fetch(API_URL, { cache: 'no-store' });
       if (!response.ok) throw new Error('Failed to load messages');
       const messages = await response.json();
-      saveLocalMessages(messages);
-      renderMessages(messages);
+      setMessages(messages);
     } catch {
-      renderMessages(getLocalMessages());
+      setMessages(getLocalMessages());
     }
   }
 
@@ -335,22 +483,27 @@ function closeModal() {
       if (!response.ok) throw new Error('Failed to save message');
 
       const savedMessage = await response.json();
-      const messages = [savedMessage, ...getLocalMessages().filter(item => item.id !== savedMessage.id)];
-      saveLocalMessages(messages);
-      await loadMessages();
+      mergeMessage(savedMessage);
     } catch {
       const localMessage = {
         ...message,
         id: `local-${Date.now()}`,
         createdAt: new Date().toISOString()
       };
-      const messages = [localMessage, ...getLocalMessages()];
-      saveLocalMessages(messages);
-      renderMessages(messages);
+      mergeMessage(localMessage);
     }
 
     form.reset();
   });
 
+  realtime.on('state', payload => {
+    if (payload?.messages) setMessages(payload.messages);
+  });
+
+  realtime.on('message-created', message => {
+    if (message) mergeMessage(message);
+  });
+
+  window.addEventListener('portfolio:languagechange', () => renderMessages(currentMessages));
   loadMessages();
 })();
