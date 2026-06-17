@@ -63,7 +63,7 @@ const translations = {
     'hero.btn2':      '<i class="fas fa-arrow-down"></i> Download CV',
     'hero.stat':      'Projects',
     'like.label':     'Like this website',
-    'like.liked':     'Thanks for liking',
+    'like.liked':     'Thanks',
     'like.count':     'likes',
     'about.title':    'About',
     'about.h3':       'Hi! I\'m Ojan',
